@@ -1,0 +1,276 @@
+ /*HTML tabla, balance, deposito, retiro
+    <body>
+        <div class="container">
+            <h1>Ingresa tu usuario</h1>
+            <form action="Iniciar sesión">
+                <input type="text" placeholder="Usuario">
+                <input type="password" placeholder="Contraseña">
+                <input type="submit" placeholder="Inciar sesión">
+            </form>
+            hr>
+            <h2>Historial de transacciones</h2>
+            <table>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Tipo</th>
+                    <th>Cantidad</th>
+                </tr>
+                <tr>
+                    <td>13/02/2023</td>
+                    <td>Depósito</td>
+                    <td>$100</td>
+                </tr>
+                <tr>
+                    <td>10/02/2023</td>
+                    <td>Retiro</td>
+                    <td>$50</td>
+                </tr>
+            </table>
+            <hr>
+            <h2>Balance</h2>
+            <p id="balance">$100</p>
+            <button id="toggle-balance">Ocultar Balance</button>
+            <hr>
+            <h2>Depositar</h2>
+            <input type="text" placeholder="Cantidad a depositar">
+            <button>Depositar</button>
+            <hr>
+            <h2>Retirar</h2>
+            <input type="text" placecholder="Cantidad a retirar">
+            <button>Retirar</button>
+        </div>
+    </body>
+
+    /* CSS del codigo de arriba 
+    body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        background: rgb(0,0,0);
+        background: radial-gradient(circle, rgba(0,0,0,0.8897934173669468) 11%, rgba(46,22,135,1) 56%, rgba(5,33,149,0.9122023809523809) 98%);
+    }
+    
+    .container {
+        background-color: #f2f2f2;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+        width: 400px;
+        text-align: center;
+    }
+    
+    form input[type="text"],
+    form input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: none;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    form input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+    }
+    
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+    
+    th {
+        background-color: #ddd;
+    }
+    
+    #balance {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+    
+    #toggle-balance {
+        background-color: transparent;
+        border: 1px solid #ddd;
+        padding: 8px 16px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    Codigo JavaScript para el codigo anterior 
+
+    let balance = 0;
+let history = [];
+let user = "";
+
+const depositBtn = document.getElementById("deposit");
+const withdrawBtn = document.getElementById("withdraw");
+const amountInput = document.getElementById("amount");
+const balanceDisplay = document.getElementById("balance");
+const historyTable = document.getElementById("history");
+const loginBtn = document.getElementById("login");
+const logoutBtn = document.getElementById("logout");
+const usernameInput = document.getElementById("username");
+const passwordInput = document.getElementById("password");
+
+const updateDisplay = () => {
+  balanceDisplay.textContent = `Balance: $${balance.toFixed(2)}`;
+  historyTable.innerHTML = "";
+  for (let i = 0; i < history.length; i++) {
+    const tr = document.createElement("tr");
+    const typeTd = document.createElement("td");
+    typeTd.textContent = history[i].type;
+    tr.appendChild(typeTd);
+    const amountTd = document.createElement("td");
+    amountTd.textContent = `$${history[i].amount.toFixed(2)}`;
+    tr.appendChild(amountTd);
+    const dateTd = document.createElement("td");
+    dateTd.textContent = history[i].date.toLocaleString();
+    tr.appendChild(dateTd);
+    historyTable.appendChild(tr);
+  }
+};
+
+const performDeposit = () => {
+  const amount = parseFloat(amountInput.value);
+  if (!isNaN(amount) && amount > 0) {
+    balance += amount;
+    history.push({
+      type: "deposit",
+      amount: amount,
+      date: new Date()
+    });
+    updateDisplay();
+  } else {
+    alert("Por favor ingrese un monto válido para depositar");
+  }
+};
+
+const performWithdraw = () => {
+  const amount = parseFloat(amountInput.value);
+  if (!isNaN(amount) && amount > 0 && amount <= balance) {
+    balance -= amount;
+    history.push({
+      type: "withdraw",
+      amount: amount,
+      date: new Date()
+    });
+    updateDisplay();
+  } else {
+    alert("No hay suficientes fondos para retirar ese monto");
+  }
+};
+
+const login = () => {
+  const username = usernameInput.value;
+  const password = passwordInput.value;
+
+  if (username === "admin" && password === "password") {
+    user = username;
+    updateDisplay();
+  } else {
+    alert("Nombre de usuario o contraseña incorrectos");
+  }
+};
+
+const logout = () => {
+  user = "";
+  updateDisplay();
+};
+
+loginBtn.addEventListener("click", login);
+logoutBtn.addEventListener("click", logout);
+
+function login() {
+    let username = usernameInput.value;
+    let password = passwordInput.value;
+}
+
+if (username === "admin" && password === "password") {
+    user = username;
+    updateDisplay();
+} else {
+    alert ("Nombre de usuario o contraseña incorrectos");
+}
+
+function logout() {
+    user ="";
+    updateDisplay();
+} 
+
+HTML PARA INICIAR SESION Y REGISTRARSE 
+<body>
+        <h1>Iniciar sesión</h1>
+        <form action="" method="post">
+            <label for="email">Correo electrónico:</label>
+            <input type="email" id="email" name="email">
+            <label for="password">Contraseña:</label>
+            <input type="password" id="password" name="password">
+            <input type="submit" value="Iniciar sesión">
+        </form>
+        <p>¿No tienes una cuenta? <a href="#registro">Regístrate aquí</a></p>
+
+        <h1>Registrarse</h1>
+        <form action="" method="post">
+            <label for="pais">País:</label>
+            <input type="text" id="pais" name="pais">
+            <label for="email">Correo electrónico:</label>
+            <input type="email" id="email" name="email">
+            <label for="password">Contraseña:</label>
+            <input type="password" id="password" name="password" required pattern="(?=.*[A-Z]).{8,}">
+            <p class="password-req">La contraseña debe tener al menos 8 caracteres y contener al menos una letra mayúscula</p>
+            <label for="verificacion">Verificación:</label>
+            <input type="password" id="verificacion" name="verificacion">
+            <br><br>
+            <input type="checkbox" id="mayorDe18" name="mayorDe18">
+            <label for="mayorDe18">Soy mayor de 18 años</label>
+            <br><br>
+            <input type="submit" value="Registrarse">
+            </form>
+            <p>Al hacer clic en "Registrarse", aceptas nuestros <a href="#">Términos y Condiciones</a> y confirmas que has leído nuestra <a href="#">Política de privacidad</a>.</p>
+            <p>Copyright &copy;2023 TM Digital Wallet. Todos los derechos reservados.</p>
+    </body> */
+
+    ---JAVASCRIPT---
+    /*  // Recuperar los elementos del formulario
+    let loginForm = document.querySelector("#login-form");
+    let registerForm = document.querySelector("#register-form");
+    let loginBtn = document.querySelector("#login-btn");
+    let registerBtn = document.querySelector("#register-btn");
+  
+    // Función de inicio de sesión
+  function login() {
+      // Obtener los valores de correo electrónico y contraseña del formulario de inicio de sesión
+      let email = loginForm.querySelector("#email").value;
+      let password = loginForm.querySelector("#password").value;
+  
+      // Realizar alguna acción con los datos, por ejemplo, validación o envío a un servidor
+      console.log(`Iniciando sesión con email ${email} y contraseña ${password}`);
+    }
+  
+    // Función de registro
+  function register() {
+      // Obtener los valores de país, correo electrónico y contraseña del formulario de registro
+      let country = registerForm.querySelector("#pais").value;
+      let email = registerForm.querySelector("#email").value;
+      let password = registerForm.querySelector("#password").value;
+  
+      // Realizar alguna acción con los datos, por ejemplo, validación o envío a un servidor
+      console.log(`Registrando nueva cuenta con país ${country}, email ${email} y contraseña ${password}`);
+    }
+  
+    // Agregar eventos de click a los botones
+  loginBtn.addEventListener("click", login);
+  registerBtn.addEventListener("click", register);*/

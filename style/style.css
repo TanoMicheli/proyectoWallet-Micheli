@@ -1,0 +1,88 @@
+/* style.css */
+/* Estilo para la página */
+:root {
+  --color-primario: #2f2f2f;
+  --color-secundario: #6f6f6f;
+  --color-destacado: #a22bcb;
+  --color-fondo: #1a1a1a;
+  --color-borde: #363636;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to bottom right, var(--color-primario), var(--color-fondo));
+  color: white;
+  transition: background-color 0.5s ease;
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  margin: 20px;
+}
+
+.logo img {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  background: var(--color-secundario);
+  transition: background-color 0.5s ease;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav li {
+  margin: 0 10px;
+}
+
+nav a {
+  display: block;
+  padding: 10px;
+  color: white;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+nav a:hover {
+  background: var(--color-destacado);
+}
+
+.contenido {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 0 10px var(--color-borde);
+}
+
+h1 {
+  font-size: 3em;
+  margin-bottom: 20px;
+}
+
+p {
+  font-size: 1.2em;
+  line-height: 1.5;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-primario: #121212;
+    --color-secundario: #292929;
+    --color-destacado: #a22bcb;
+    --color-fondo: #000000;
+    --color-borde: #363636;
+  }
+}
